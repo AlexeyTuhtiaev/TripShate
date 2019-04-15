@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 using TripShare.Back.Models;
 
 namespace TripShare.Back
@@ -26,11 +27,25 @@ namespace TripShare.Back
         {
             services.AddTransient<Repository>();
             services.AddMvc();
+
+            services.AddSwaggerGen(options =>
+                options.SwaggerDoc("v1", new Info { Title = "Trip Share", Version = "v1" })
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+
+            if (env.IsDevelopment() || env.IsStaging())
+            {
+                app.UseSwaggerUI(options =>
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Trip Share v1")
+                );
+            }
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
