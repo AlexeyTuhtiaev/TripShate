@@ -20,3 +20,4 @@ bld/
 *.[Pp]ublish.xml
 *.pubxml
 *.publishproj
+/TripShare.Back/Trips.db
