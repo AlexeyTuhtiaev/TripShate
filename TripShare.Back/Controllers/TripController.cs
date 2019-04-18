@@ -20,9 +20,12 @@ namespace TripShare.Back.Controllers
 
         // GET api/Trips
         [HttpGet]
-        public async Task<IActionResult> GetAsynk()
+        public async Task<IActionResult> GetAsync()
         {
-            var trips = await _context.Trips.AsNoTracking().ToListAsync();
+            var trips = await _context.Trips
+                .AsNoTracking()
+                .Include(t => t.Segments)
+                .ToListAsync();
             return Ok(trips);
         }
 

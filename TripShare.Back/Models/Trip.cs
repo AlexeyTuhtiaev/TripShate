@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace TripShare.Back.Models
 {
-    public class Trip
+    public class Trip : TripShareDTO.Trip
     {
-        public int Id { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        public DateTime StartDate { get; set; }
-
-        [Required]
-        public DateTime EndDate { get; set; }
+        public virtual ICollection<Segment> Segments { get; set; }
     }
 }

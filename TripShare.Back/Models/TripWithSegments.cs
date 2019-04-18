@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace TripShare.Back.Models
 {
-    public class Segment : TripShareDTO.Segment
+    public class TripWithSegments :TripShareDTO.Trip
     {
+        public ICollection<Segment> Segments { get; set; }
     }
 }
