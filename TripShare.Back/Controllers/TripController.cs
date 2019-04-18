@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TripShare.Back.Data;
-using TripShare.Back.Models;
+using TripShareDTO;
+using Trip = TripShare.Back.Models.Trip;
 
 namespace TripShare.Back.Controllers
 {
@@ -25,15 +26,33 @@ namespace TripShare.Back.Controllers
             var trips = await _context.Trips
                 .AsNoTracking()
                 .Include(t => t.Segments)
+                .Select(t =>
+                    new TripWithSegments
+                    {
+                        Id = t.Id,
+                        Name = t.Name,
+                        StartDate = t.StartDate,
+                        EndDate = t.EndDate,
+                        Segments = t.Segments.ToList<Segment>()
+                    })
                 .ToListAsync();
             return Ok(trips);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Trip Get(int id)
+        public TripWithSegments Get(int id)
         {
-            return _context.Trips.Find(id);
+            return _context.Trips.Select(t =>
+                    new TripWithSegments
+                    {
+                        Id = t.Id,
+                        Name = t.Name,
+                        StartDate = t.StartDate,
+                        EndDate = t.EndDate,
+                        Segments = t.Segments.ToList<Segment>()
+                    })
+                .SingleOrDefault(t => t.Id == id);
         }
 
         // POST api/values
