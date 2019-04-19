@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27428.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TripShare.Back", "TripShare.Back\TripShare.Back.csproj", "{AB1B3676-4B9C-493E-A501-1A8C7CAA405B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripShareDTO", "TripShareDTO\TripShareDTO.csproj", "{911E0A93-868C-4421-B158-A6449C11C49E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TripShareDTO", "TripShareDTO\TripShareDTO.csproj", "{911E0A93-868C-4421-B158-A6449C11C49E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripShare.UI", "TripShare.UI\TripShare.UI.csproj", "{4FB888F9-79C2-4FCB-8AD0-72B7B04F0B22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{911E0A93-868C-4421-B158-A6449C11C49E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{911E0A93-868C-4421-B158-A6449C11C49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{911E0A93-868C-4421-B158-A6449C11C49E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FB888F9-79C2-4FCB-8AD0-72B7B04F0B22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FB888F9-79C2-4FCB-8AD0-72B7B04F0B22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FB888F9-79C2-4FCB-8AD0-72B7B04F0B22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FB888F9-79C2-4FCB-8AD0-72B7B04F0B22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
