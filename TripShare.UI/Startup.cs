@@ -36,12 +36,11 @@ namespace TripShare.UI
 
             #region API Client Configuration
 
-            var httpClient = new HttpClient
+            services.AddScoped(_ => new HttpClient
             {
                 BaseAddress = new Uri(Configuration["serviseUrl"])
-            };
-            services.AddSingleton(httpClient);
-            services.AddSingleton<IApiClient, ApiClient>();
+            });
+            services.AddScoped<IApiClient, ApiClient>();
 
             #endregion
             
