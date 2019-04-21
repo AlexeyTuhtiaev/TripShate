@@ -27,28 +27,28 @@ namespace TripShare.UI.Services
 
         public async Task AddTripAsync(Trip tripToAdd)
         {
-            var response = await _HttpClient.PostJsonAsync("/api/Trips", tripToAdd);
+            var response = await _HttpClient.PostJsonAsync("/api/Trip", tripToAdd);
 
             response.EnsureSuccessStatusCode();
         }
 
         public async Task<Trip> GetTripAsync(int id)
         {
-            var response = await _HttpClient.GetAsync($"/api/Trips/{id}");
+            var response = await _HttpClient.GetAsync($"/api/Trip/{id}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsJsonAsync<Trip>();
         }
 
         public async Task<List<Trip>> GetTripsAsync()
         {
-            var response = await _HttpClient.GetAsync("/api/Trips");
+            var response = await _HttpClient.GetAsync("/api/Trip");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsJsonAsync<List<Trip>>();
         }
 
         public async Task PutTripAsync(Trip tripToUpdate)
         {
-            var response = await _HttpClient.PutJsonAsync($"/api/Trips/{tripToUpdate.Id}", tripToUpdate);
+            var response = await _HttpClient.PutJsonAsync($"/api/Trip/{tripToUpdate.Id}", tripToUpdate);
 
             response.EnsureSuccessStatusCode();
         }

@@ -18,7 +18,7 @@ namespace TripShare.Back.Controllers
             _context = context;
         }
 
-        // GET api/Trips
+        // GET api/Trip
         [HttpGet]
         public async Task<IActionResult> GetAsync()
         {

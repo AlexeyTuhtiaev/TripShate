@@ -43,7 +43,7 @@ namespace TripShare.UI
             services.AddScoped<IApiClient, ApiClient>();
 
             #endregion
-            
+
 
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
