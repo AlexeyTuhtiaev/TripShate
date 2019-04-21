@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -32,6 +33,18 @@ namespace TripShare.UI
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            #region API Client Configuration
+
+            var httpClient = new HttpClient
+            {
+                BaseAddress = new Uri(Configuration["serviseUrl"])
+            };
+            services.AddSingleton(httpClient);
+            services.AddSingleton<IApiClient, ApiClient>();
+
+            #endregion
+            
 
             services.AddMvc()
                 .AddRazorPagesOptions(options =>
