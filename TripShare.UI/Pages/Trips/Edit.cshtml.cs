@@ -8,16 +8,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TripShare.Back.Models;
 using TripShare.UI.Data;
+using TripShare.UI.Services;
 
 namespace TripShare.UI.Pages.Trips
 {
     public class EditModel : PageModel
     {
-        private readonly TripShare.UI.Data.ApplicationDbContext _context;
+        private readonly IApiClient _client;
 
-        public EditModel(TripShare.UI.Data.ApplicationDbContext context)
+        public EditModel(IApiClient client)
         {
-            _context = context;
+            _client = client;
         }
 
         [BindProperty]
@@ -30,7 +31,7 @@ namespace TripShare.UI.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.SingleOrDefaultAsync(m => m.Id == id);
+            Trip = await _client.GetTripAsync(id.Value);
 
             if (Trip == null)
             {
@@ -46,30 +47,14 @@ namespace TripShare.UI.Pages.Trips
                 return Page();
             }
 
-            _context.Attach(Trip).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TripExists(Trip.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+           await _client.PutTripAsync(Trip);
 
             return RedirectToPage("./Index");
         }
 
-        private bool TripExists(int id)
+        private async Task<bool> TripExists(int id)
         {
-            return _context.Trip.Any(e => e.Id == id);
+            return await _client.GetTripAsync(id) != null;
         }
     }
 }

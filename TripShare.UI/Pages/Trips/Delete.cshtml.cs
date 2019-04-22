@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TripShare.Back.Models;
 using TripShare.UI.Data;
+using TripShare.UI.Services;
 
 namespace TripShare.UI.Pages.Trips
 {
     public class DeleteModel : PageModel
     {
-        private readonly TripShare.UI.Data.ApplicationDbContext _context;
+        private readonly IApiClient _client;
 
-        public DeleteModel(TripShare.UI.Data.ApplicationDbContext context)
+        public DeleteModel(IApiClient client)
         {
-            _context = context;
+            _client = client;
         }
 
         [BindProperty]
@@ -29,7 +30,7 @@ namespace TripShare.UI.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.SingleOrDefaultAsync(m => m.Id == id);
+            Trip = await _client.GetTripAsync(id.Value);
 
             if (Trip == null)
             {
@@ -45,12 +46,11 @@ namespace TripShare.UI.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.FindAsync(id);
+            Trip = await _client.GetTripAsync(id.Value);
 
             if (Trip != null)
             {
-                _context.Trip.Remove(Trip);
-                await _context.SaveChangesAsync();
+                await _client.RemoveTripAsync(id.Value);
             }
 
             return RedirectToPage("./Index");

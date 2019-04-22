@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TripShare.Back.Models;
 using TripShare.UI.Data;
+using TripShare.UI.Services;
 
 namespace TripShare.UI.Pages.Trips
 {
     public class CreateModel : PageModel
     {
-        private readonly TripShare.UI.Data.ApplicationDbContext _context;
+        private readonly IApiClient _client;
 
-        public CreateModel(TripShare.UI.Data.ApplicationDbContext context)
+        public CreateModel(IApiClient client)
         {
-            _context = context;
+            _client = client;
         }
 
         public IActionResult OnGet()
@@ -34,8 +35,7 @@ namespace TripShare.UI.Pages.Trips
                 return Page();
             }
 
-            _context.Trip.Add(Trip);
-            await _context.SaveChangesAsync();
+            await _client.AddTripAsync(Trip);
 
             return RedirectToPage("./Index");
         }

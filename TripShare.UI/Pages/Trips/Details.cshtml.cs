@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using TripShare.Back.Models;
 using TripShare.UI.Data;
+using TripShare.UI.Services;
 
 namespace TripShare.UI.Pages.Trips
 {
     public class DetailsModel : PageModel
     {
-        private readonly TripShare.UI.Data.ApplicationDbContext _context;
+        private readonly IApiClient _client;
 
-        public DetailsModel(TripShare.UI.Data.ApplicationDbContext context)
+        public DetailsModel(IApiClient client)
         {
-            _context = context;
+            _client = client;
         }
 
         public Trip Trip { get; set; }
@@ -28,7 +29,7 @@ namespace TripShare.UI.Pages.Trips
                 return NotFound();
             }
 
-            Trip = await _context.Trip.SingleOrDefaultAsync(m => m.Id == id);
+            Trip = await _client.GetTripAsync(id.Value);
 
             if (Trip == null)
             {

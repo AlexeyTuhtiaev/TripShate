@@ -21,12 +21,12 @@ namespace TripShare.UI
 
         public static Task<HttpResponseMessage> PostJsonAsync<T>(this HttpClient client, string url, T value)
         {
-            return SendJsonAsync(client, HttpMethod.Put, url, value);
+            return SendJsonAsync(client, HttpMethod.Post, url, value);
         }
 
         public static Task<HttpResponseMessage> PutJsonAsync<T>(this HttpClient client, string url, T value)
         {
-            return SendJsonAsync(client, HttpMethod.Post, url, value);
+            return SendJsonAsync(client, HttpMethod.Put, url, value);
         }
 
         private static Task<HttpResponseMessage> SendJsonAsync<T>(this HttpClient client, HttpMethod method, string url, T value)

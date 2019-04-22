@@ -13,6 +13,7 @@ namespace TripShare.UI.Services
         Task<List<Trip>> GetTripsAsync();
         Task PutTripAsync(Trip tripToUpdate);
         Task AddTripAsync(Trip tripToAdd);
+        Task RemoveTripAsync(int id);
 
     }
 
@@ -49,6 +50,13 @@ namespace TripShare.UI.Services
         public async Task PutTripAsync(Trip tripToUpdate)
         {
             var response = await _HttpClient.PutJsonAsync($"/api/Trip/{tripToUpdate.Id}", tripToUpdate);
+
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task RemoveTripAsync(int id)
+        {
+            var response = await _HttpClient.DeleteAsync($"/api/Trip/{id}");
 
             response.EnsureSuccessStatusCode();
         }
